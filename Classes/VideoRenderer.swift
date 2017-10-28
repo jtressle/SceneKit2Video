@@ -86,19 +86,19 @@ public class VideoRenderer {
     
         var assetWriter: AVAssetWriter
         do {
-            assetWriter = try AVAssetWriter(outputURL: url, fileType: AVFileTypeAppleM4V)
+            assetWriter = try AVAssetWriter(outputURL: url, fileType: AVFileType.m4v)
         } catch {
             assert(false, error.localizedDescription)
             return
         }
         
         let settings: [String: Any] = [
-            AVVideoCodecKey: AVVideoCodecH264,
+            AVVideoCodecKey: AVVideoCodecType.h264,
             AVVideoWidthKey: videoSize.width,
             AVVideoHeightKey: videoSize.height
         ]
     
-        let input = AVAssetWriterInput(mediaType: AVMediaTypeVideo, outputSettings: settings)
+        let input = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: settings)
         // input.expectsMediaDataInRealTime = false
         assetWriter.add(input)
         
