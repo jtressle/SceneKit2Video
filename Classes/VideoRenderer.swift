@@ -92,11 +92,21 @@ public class VideoRenderer {
             return
         }
         
-        let settings: [String: Any] = [
-            AVVideoCodecKey: AVVideoCodecType.h264,
-            AVVideoWidthKey: videoSize.width,
-            AVVideoHeightKey: videoSize.height
-        ]
+        let settings : [String: Any]
+        
+        if #available(iOS 11.0, *) {
+            settings = [
+                AVVideoCodecKey: AVVideoCodecType.h264,
+                AVVideoWidthKey: videoSize.width,
+                AVVideoHeightKey: videoSize.height
+            ]
+        } else {
+            settings = [
+                AVVideoCodecKey: AVVideoCodecH264,
+                AVVideoWidthKey: videoSize.width,
+                AVVideoHeightKey: videoSize.height
+            ]
+        }
     
         let input = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: settings)
         // input.expectsMediaDataInRealTime = false
